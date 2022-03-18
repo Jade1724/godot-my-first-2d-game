@@ -1,5 +1,6 @@
 extends Area2D
 
+signal hit
 
 # Declare member variables here. Examples:
 export var speed = 400
@@ -42,3 +43,14 @@ func _process(delta):
 		$AnimatedSprite.animation = "up"
 		$AnimatedSprite.flip_v = velocity.y > 0
 		
+
+
+func _on_Player_hit():
+	hide()
+	emit_signal("hit")
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
